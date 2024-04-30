@@ -1,25 +1,25 @@
-grammar Expresison;
+grammar Expression;
 
 // Parser rules
 expression
-	: term plus expression
+	: term PLUS expression
 	| term
 	;
 
 term
-	: factor times term
+	: factor TIMES term
 	| factor
 	;
 
 factor
-	: number
-	| par_op expression par_cl
+	: NUMBER
+	| PAR_OP expression PAR_CL
 	;
 
 // Lexer rules
-plus: '+';
-times: '*';
-number: [1-9][0-9]+;
-par_op: '(';
-par_cl: ')';
-whitespace: [ \r\n\t]+ -> skip;
+PLUS: '+';
+TIMES: '*';
+NUMBER: [1-9][0-9]+;
+PAR_OP: '(';
+PAR_CL: ')';
+WS: [ \r\n\t]+ -> skip;
