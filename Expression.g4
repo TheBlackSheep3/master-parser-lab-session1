@@ -19,7 +19,7 @@ factor
 // Lexer rules
 PLUS: '+';
 TIMES: '*';
-NUMBER: [1-9][0-9]+;
+NUMBER: [0-9]*;
 PAR_OP: '(';
 PAR_CL: ')';
 WS: [ \r\n\t]+ -> skip;

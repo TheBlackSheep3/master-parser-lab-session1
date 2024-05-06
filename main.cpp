@@ -13,5 +13,9 @@ int main(int argc, char const* agrv[])
   ExpressionLexer lexer(&stream);
   antlr4::CommonTokenStream tokens(&lexer);
   ExpressionParser parser(&tokens);
+  antlr4::tree::ParseTree * tree = parser.expression();
+
+  std::cout << tree->toStringTree(&parser) << std::endl;
+
   return 0;
 }
