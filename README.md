@@ -14,7 +14,7 @@ The tool used for generating the lexer and parser is [ANTLR v4](https://github.c
 - Java (because ANTLR is written in Java)
 - ANTLR v4 (the JAR-File can be downloaded [here](https://www.antlr.org/download.html))
 - [CMake](https://cmake.org/download/) (at least version 3.7)
-- a C++ compiler (e.g. Apple Clang [used to develop this program], Clang, g++, MSVC)
+- C++ compiler supporting C++17 (e.g. Apple Clang [used to develop this program], Clang, g++, MSVC)
 
 ## Build
 
