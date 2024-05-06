@@ -14,6 +14,8 @@ add_definitions(-DANTLR4CPP_STATIC)
 # using /MD flag for antlr4_runtime (for Visual C++ compilers only)
 set(ANTLR4_WITH_STATIC_CRT OFF)
 
+option(PRINT_COMPILER "if the used compiler should be printed" OFF)
+
 # Specify the version of the antlr4 library needed for this project.
 # By default the latest version of antlr4 will be used.  You can specify a
 # specific, stable version by setting a repository tag value or a link
@@ -34,6 +36,10 @@ find_package(ANTLR REQUIRED)
 
 # Call macro to add lexer and grammar to your build dependencies.
 antlr_target(ExpresssionGrammarParser Expression.g4)
+
+if(PRINT_COMPILER)
+        message("compiling using ${CMAKE_CXX_COMPILER_ID} version ${CMAKE_CXX_COMPILER_VERSION}")
+endif()
 
 # include generated files in project environment
 include_directories(${ANTLR_ExpresssionGrammarParser_OUTPUT_DIR})
