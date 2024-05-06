@@ -35,7 +35,7 @@ set(ANTLR_EXECUTABLE /opt/homebrew/Cellar/antlr/4.13.1/antlr-4.13.1-complete.jar
 find_package(ANTLR REQUIRED)
 
 # Call macro to add lexer and grammar to your build dependencies.
-antlr_target(ExpresssionGrammarParser Expression.g4)
+antlr_target(ExpresssionGrammarParser Expression.g4 LEXER PARSER VISITOR)
 
 if(PRINT_COMPILER)
         message("compiling using ${CMAKE_CXX_COMPILER_ID} version ${CMAKE_CXX_COMPILER_VERSION}")
@@ -45,6 +45,8 @@ endif()
 include_directories(${ANTLR_ExpresssionGrammarParser_OUTPUT_DIR})
 
 # add generated grammar to demo binary target
+add_library(EvaluationVisitor OBJECT EvaluationVisitor.cpp)
 add_executable(expression main.cpp
         ${ANTLR_ExpresssionGrammarParser_CXX_OUTPUTS})
 target_link_libraries(expression antlr4_static)
+target_link_libraries(expression EvaluationVisitor)
