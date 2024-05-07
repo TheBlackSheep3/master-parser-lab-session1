@@ -1,14 +1,24 @@
 grammar Expression;
 
 // Parser rules
+start: expression EOF;
+
 expression
-	: term PLUS expression
-	| term
+	: term expressionPrime
+	;
+
+expressionPrime
+	: /* epsilon */
+	| PLUS expression
 	;
 
 term
-	: factor TIMES term
-	| factor
+	: factor termPrime
+	;
+
+termPrime
+	: /* epsilon */
+	| TIMES term
 	;
 
 factor

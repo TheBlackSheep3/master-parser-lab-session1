@@ -50,3 +50,4 @@ add_executable(expression main.cpp
         ${ANTLR_ExpresssionGrammarParser_CXX_OUTPUTS})
 target_link_libraries(expression antlr4_static)
 target_link_libraries(expression EvaluationVisitor)
+target_link_libraries(EvaluationVisitor antlr4_static)

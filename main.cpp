@@ -18,7 +18,7 @@ int main(int argc, char const* agrv[])
 
   EvaluationVisitor visitor;
   
-  int result = std::any_cast<int>(visitor.visitExpression(parser.expression()));
+  int result = std::any_cast<int>(visitor.visitStart(parser.start()));
 
   std::cout << result << std::endl;
   return 0;
