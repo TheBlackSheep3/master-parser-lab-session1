@@ -47,5 +47,7 @@ The program accepts and evaluated the following grammar of expressions.
 ```
 
 ## Tools used for solution
+Both lexer and parser are generated using ANTLR. The version of ANTLR used during development was 4.13.1. The build system used for the project is CMake, during development used in version 3.29.2. The C++ compiler which was used for development and testing is AppleClang version 15.0.0.15000309.
 
 ## Statements about final CFG
+The grammar used for parser generation is a LL(1) context free grammar.
