@@ -39,8 +39,10 @@ After compilation the binary is located in the `bld` directory. After running it
 ## Accepted expressions
 The program accepts and evaluated the following grammar of expressions.
 ```
-<expression> ::= <term> | <term> "+" <expression>
-<term> ::= <factor> | <factor> "*" <term>
+<expression> ::= <term> <expression-prime>
+<expression-prime> ::= "+" <expression> | ""
+<term> ::= <factor> <term-prime>
+<term-prime> ::= "*" <term> | ""
 <factor> ::= <number> | "(" <expression> ")"
 <number> ::= <digit> | <number><digit>
 <digit> ::= "0" | "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9"
@@ -50,4 +52,4 @@ The program accepts and evaluated the following grammar of expressions.
 Both lexer and parser are generated using ANTLR. The version of ANTLR used during development was 4.13.1. The build system used for the project is CMake, during development used in version 3.29.2. The C++ compiler which was used for development and testing is AppleClang version 15.0.0.15000309.
 
 ## Statements about final CFG
-The grammar used for parser generation is a LL(1) context free grammar.
+The grammar used for parser generation is a LL(1) context free grammar. I was not able to find out if the generated parer is actually LL(1). This [stackoverflow comment](https://stackoverflow.com/a/26457201) suggests it is but I am not 100% certain.
