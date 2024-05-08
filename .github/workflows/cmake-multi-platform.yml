@@ -53,7 +53,7 @@ jobs:
         distribution: 'microsoft'
         java-version: '21'
     
-    - uses: StoneMoe/setup-antlr4@v4.13.0
+    - uses: TheBlackSheep3/setup-antlr4@master
 
     - uses: actions/checkout@v4
 
