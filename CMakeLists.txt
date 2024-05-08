@@ -51,3 +51,20 @@ target_link_libraries(EvaluationVisitor antlr4_static)
 add_executable(expression main.cpp)
 target_link_libraries(expression antlr4_static)
 target_link_libraries(expression EvaluationVisitor)
+
+# enable testing
+include(CTest)
+
+# define a function to simplify adding tests
+function(do_test name target arg result)
+  add_test(NAME ${name} COMMAND ${target} ${arg})
+  set_tests_properties(${name}
+    PROPERTIES PASS_REGULAR_EXPRESSION ${result}
+    )
+endfunction()
+
+# do a bunch of result based tests
+do_test(Number expression "11" "11")
+do_test(Addition expression "1+2" "3")
+do_test(Multiplication expression "3*5" "15")
+do_test(Composition expression "3+4*(13+11)" "99")
