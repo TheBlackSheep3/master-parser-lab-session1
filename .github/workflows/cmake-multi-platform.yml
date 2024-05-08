@@ -30,12 +30,15 @@ jobs:
           - os: windows-latest
             c_compiler: cl
             cpp_compiler: cl
+            jar_path: C:\\Javalib\\antlr4.jar
           - os: ubuntu-latest
             c_compiler: gcc
             cpp_compiler: g++
+            jar_path: /tmp/antlr4.jar
           - os: ubuntu-latest
             c_compiler: clang
             cpp_compiler: clang++
+            jar_path: /tmp/antlr4.jar
         exclude:
           - os: windows-latest
             c_compiler: gcc
@@ -45,6 +48,13 @@ jobs:
             c_compiler: cl
 
     steps:
+    - uses: actions/setup-java@v4
+      with:
+        distribution: 'microsoft'
+        java-version: '21'
+    
+    - uses: StoneMoe/setup-antlr4@v4.13.0
+
     - uses: actions/checkout@v4
 
     - name: Set reusable strings
@@ -62,6 +72,7 @@ jobs:
         -DCMAKE_CXX_COMPILER=${{ matrix.cpp_compiler }}
         -DCMAKE_C_COMPILER=${{ matrix.c_compiler }}
         -DCMAKE_BUILD_TYPE=${{ matrix.build_type }}
+        -DANTLR_EXECUTABLE=${{ matrix.jar_path }}
         -S ${{ github.workspace }}
 
     - name: Build
