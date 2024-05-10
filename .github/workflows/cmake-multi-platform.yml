@@ -53,7 +53,8 @@ jobs:
         distribution: 'microsoft'
         java-version: '21'
     
-    - uses: StoneMoe/setup-antlr4@v4.13.0
+      # use version running on node20
+    - uses: StoneMoe/setup-antlr4@51841d3afbb723d9efb68618f926f7e26fd58143
 
     - uses: actions/checkout@v4
 
