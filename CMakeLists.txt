@@ -49,7 +49,6 @@ add_library(EvaluationVisitor OBJECT EvaluationVisitor.cpp ${ANTLR_ExpressionGra
 target_link_libraries(EvaluationVisitor antlr4_static)
 
 add_executable(expression main.cpp)
-target_link_libraries(expression antlr4_static)
 target_link_libraries(expression EvaluationVisitor)
 
 # enable testing
