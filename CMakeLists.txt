@@ -1,12 +1,23 @@
 # minimum required CMAKE version
 CMAKE_MINIMUM_REQUIRED(VERSION 3.7 FATAL_ERROR)
 
-project("parser-lab1-expression")
+project("parser-lab1-expression" VERSION 1.1)
 
 list(APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake)
 
 # compiler must be 17
 set(CMAKE_CXX_STANDARD 17)
+
+set(EXECUTABLE_NAME expression)
+configure_file(config.hpp.in config.hpp)
+
+include(cmake/CPM.cmake)
+
+CPMAddPackage(
+	NAME argparse
+	VERSION 3.0
+	GITHUB_REPOSITORY p-ranav/argparse
+)
 
 # required if linking to static library
 add_definitions(-DANTLR4CPP_STATIC)
@@ -48,18 +59,21 @@ include_directories(${ANTLR_ExpressionGrammarParser_OUTPUT_DIR})
 add_library(EvaluationVisitor OBJECT EvaluationVisitor.cpp ${ANTLR_ExpressionGrammarParser_CXX_OUTPUTS})
 target_link_libraries(EvaluationVisitor antlr4_static)
 
-add_executable(expression main.cpp)
-target_link_libraries(expression EvaluationVisitor)
+add_executable(${EXECUTABLE_NAME} main.cpp)
+target_link_libraries(${EXECUTABLE_NAME} EvaluationVisitor argparse)
+target_include_directories(${EXECUTABLE_NAME}
+  PRIVATE
+    ${CMAKE_CURRENT_BINARY_DIR}
+    ${CMAKE_CURRENT_SOURCE_DIR})
 
 # enable testing
 include(CTest)
 
 # define a function to simplify adding tests
 function(do_test name target arg result)
-  add_test(NAME ${name} COMMAND ${target} ${arg})
+  add_test(NAME ${name} COMMAND ${target} --expression ${arg})
   set_tests_properties(${name}
-    PROPERTIES PASS_REGULAR_EXPRESSION ${result}
-    )
+    PROPERTIES PASS_REGULAR_EXPRESSION ${result})
 endfunction()
 
 # do a bunch of result based tests
