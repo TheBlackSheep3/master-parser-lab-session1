@@ -13,7 +13,7 @@ Build parser for “calculator”
 The tool used for generating the lexer and parser is [ANTLR v4](https://github.com/antlr/antlr4). To compile and run the software the following tools are needed
 - Java (because ANTLR is written in Java)
 - ANTLR v4 (the JAR-file can be downloaded [here](https://www.antlr.org/download.html))
-- [CMake](https://cmake.org/download/) (at least version 3.7)
+- [CMake](https://cmake.org/download/) (at least version 3.14)
 - C++ compiler supporting C++17 (e.g. Apple Clang [used to develop this program], Clang, g++, MSVC)
 
 ## Build
@@ -31,7 +31,7 @@ The default value is `/opt/homebrew/Cellar/antlr/4.13.1/antlr-4.13.1-complete.ja
 ## Usage
 After compilation the binary is located in the `bld` directory. After running it the user has to input the expression which is to be evaluated and press enter. The result of the expression will be displayed on the next line.
 ```shell
-./bld/expression
+./bld/expression --interactive
 3+4*(13+11)
 99
 ```
