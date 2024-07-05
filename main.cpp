@@ -1,9 +1,13 @@
-#include <any>
-#include <fstream>
-#include <iostream>
-#include <string>
+#include <algorithm> // std::equal
+#include <any>       // std::any_cast
+#include <cctype>    // std::tolower
+#include <cstdlib>   // std::exit
+#include <exception> // std::exception
+#include <fstream>   // std::ifstream, std::ofstream
+#include <iostream>  // std::cin, std::cout, std::cerr
+#include <string>    // std::getline, std::string
 
-#include <argparse/argparse.hpp>
+#include <argparse/argparse.hpp> // argparse::ArgumentParser
 
 #include "EvaluationVisitor.h"
 #include "ExpressionLexer.h"
@@ -20,6 +24,14 @@ int parse(std::string const& input) {
   EvaluationVisitor visitor;
 
   return std::any_cast<int>(visitor.visitStart(parser.start()));
+}
+
+bool ignore_case_char_equals(char a, char b) {
+  return std::tolower(a) == std::tolower(b);
+}
+
+bool ignore_case_string_equals(std::string const& a, std::string const& b) {
+  return std::equal(a.begin(), a.end(), b.begin(), b.end(), ignore_case_char_equals);
 }
 
 int main(int argc, char const* argv[]) {
@@ -50,7 +62,7 @@ int main(int argc, char const* argv[]) {
     program.parse_args(argc, argv);
   } catch (std::exception const& e) {
     std::cerr << e.what() << "\n\n" << HELP_HINT;
-    exit(EXIT_FAILURE);
+    std::exit(EXIT_FAILURE);
   }
 
   std::string input;
@@ -60,11 +72,18 @@ int main(int argc, char const* argv[]) {
                    "'-i/--interactive'"
                 << "\n\n"
                 << HELP_HINT;
-      exit(EXIT_FAILURE);
+      std::exit(EXIT_FAILURE);
     }
+    std::string const quit = "quit";
+    std::string const exit = "exit";
     while (true) {
       std::cout << "Enter an expression to be evaluated." << '\n';
       std::getline(std::cin, input);
+      if (ignore_case_string_equals(input, quit) || ignore_case_string_equals(input, exit))
+      {
+        std::cout << "Exiting...\n";
+        std::exit(EXIT_SUCCESS);
+      }
       std::cout << parse(input) << "\n\n";
     }
   } else if (auto expression = program.present("--expression")) {
