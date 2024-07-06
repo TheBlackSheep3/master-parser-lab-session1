@@ -8,8 +8,10 @@ list(APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake)
 # compiler must be 17
 set(CMAKE_CXX_STANDARD 17)
 
+set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 set(EXECUTABLE_NAME expression)
 configure_file(config.hpp.in config.hpp)
+configure_file(.clangd.in ${CMAKE_CURRENT_SOURCE_DIR}/.clangd)
 
 include(cmake/CPM.cmake)
 
